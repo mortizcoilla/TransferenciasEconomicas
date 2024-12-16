@@ -1,0 +1,195 @@
+|-- .gitignore
+|-- config
+    |-- config.yml
+|-- data
+    |-- archive
+        |-- 202407
+            |-- 01-Resultados_BD01-1_20241214_144607_20241216_001836_20241216_002307_20241216_002907_20241216_003508_20241216_003748_20241216_004522_20241216_005511.zip
+            |-- 02-Antecedentes-de-Calculo_2409_BD01-1_20241214_144609_20241216_001838_20241216_002310_20241216_002910_20241216_003511_20241216_003751_20241216_004525_20241216_005513.zip
+            |-- 02-Antecedentes-de-Calculo_2409_BD01-2_20241214_144612_20241216_001842_20241216_002313_20241216_002913_20241216_003514_20241216_003754_20241216_004528_20241216_005517.zip
+            |-- 02-Antecedentes-de-Calculo_2409_BD01-3-1_20241214_144616_20241216_001845_20241216_002316_20241216_002916_20241216_003517_20241216_003758_20241216_004531_20241216_005520.zip
+            |-- 03-Bases-de-Datos_2409_BD01-1_20241214_144616_20241216_001845_20241216_002317_20241216_002917_20241216_003518_20241216_003758_20241216_004532_20241216_005520.zip
+            |-- 03-Bases-de-Datos_2409_BD01-2_20241214_144637_20241216_001907_20241216_002337_20241216_002937_20241216_003538_20241216_003817_20241216_004551_20241216_005539.zip
+            |-- 03-Bases-de-Datos_2409_BD01-3_20241214_144638_20241216_001908_20241216_002338_20241216_002938_20241216_003539_20241216_003819_20241216_004552_20241216_005540.zip
+    |-- processed
+        |-- 202407
+            |-- 01 Resultados
+                |-- 01 Balance de Energía
+                    |-- 01 Balance Valorizado
+                        |-- Balance_2409_BD01.xlsm
+                        |-- ~$Balance_2308_BD01.xlsm
+                        |-- ~$Balance_2312_BP01.xlsm
+                    |-- 02 Balance Físico
+                        |-- REVISION_RES_NORTE_2409.xls
+                        |-- REVISION_RES_NORTE_DX_2409.xls
+                        |-- REVISION_RES_SUR_2409.xls
+                        |-- REVISION_RES_SUR_DX_2409.xls
+                    |-- 03 Precio Estabilizado
+                        |-- Precio_estabilizado_2409.xlsb
+                    |-- 04 Sobrecostos
+                        |-- Consolidado_2409_Definitivo.xlsx
+                        |-- Pago_Sobrecostos_2409_Definitivo.xlsx
+                        |-- Sobrecostos_PD_2409_def.xlsm
+                    |-- 05 Contratos entre Generadores
+                        |-- Contratos_Financieros_2409_Resultados.xlsx
+                        |-- Contratos_Generadores_2409_Fisicos_Resultados.xlsx
+                    |-- 06 Prorratas Líneas
+                        |-- Prorratas_Nacionales_2409.xlsm
+                |-- CPITE_2409.csv
+                |-- CPTEE_2409.csv
+                |-- Cuadros de Pago_Balances_SEN_Sept24_def.xlsb
+            |-- 02 Antecedentes de Cálculo_2409_BD01 - 1
+                |-- 01 Balance Físico
+                    |-- 01 Balance Transmisión
+                        |-- DATOS
+                            |-- BASE_NORTE_2409.xls
+                            |-- BASE_SUR_2409.xls
+                            |-- DATOS_EXTRAS_NORTE.xls
+                            |-- DATOS_EXTRAS_SUR.xls
+                            |-- MEDIDORES_NORTE_2409.xlsm
+                            |-- MEDIDORES_SUR_2409.xlsm
+                        |-- PLANTILLAS
+                            |-- ASIGN_EPSA.xls
+                            |-- BEX_PL.xls
+                            |-- CMG.xlsx
+                            |-- CMG_PL.xls
+                            |-- CMG_PL.xlsx
+                            |-- DES_PL.xls
+                            |-- EXT_PL.xls
+                            |-- FAC_PL3.xls
+                            |-- FAC_PL3.xlsx
+                            |-- LIN_PL.xls
+                            |-- RETIROS_ZONA.xls
+                            |-- RETIROS_ZONA.xlsm
+                            |-- RETIROS_ZONA.xlsx
+                            |-- TFE_PL.xls
+                            |-- TVE_PL.xlsx
+                            |-- TVE_PL_CC.xlsx
+                            |-- TVE_PL_OLD.xlsx
+                            |-- TVE_PL_w.xlsx
+                            |-- VENTAS_PL.xls
+                            |-- ZONA.xls
+                        |-- SALIDAS
+                        |-- TRANSFER_2023_V19_15Min.xlsm
+                    |-- 02 Balance Distribución
+                        |-- BASE_NORTE_2409.xlsx
+                        |-- BASE_SUR_2409.xlsx
+                        |-- FR_NORTE_2409.xlsx
+                        |-- FR_SUR_2409.xlsx
+                        |-- MEDIDORES_NORTE_2409.xlsm
+                        |-- MEDIDORES_SUR_2409.xlsm
+                        |-- TRANSFER_2023_V15.1_Dx.xls
+            |-- 02 Antecedentes de Cálculo_2409_BD01 - 2
+                |-- 02 Sobrecostos
+                    |-- Detalles Diarios
+                        |-- Detalle Sobrecostos 20240901.xlsx
+                        |-- Detalle Sobrecostos 20240902.xlsx
+                        |-- Detalle Sobrecostos 20240903.xlsx
+                        |-- Detalle Sobrecostos 20240904.xlsx
+                        |-- Detalle Sobrecostos 20240905.xlsx
+                        |-- Detalle Sobrecostos 20240906.xlsx
+                        |-- Detalle Sobrecostos 20240907.xlsx
+                        |-- Detalle Sobrecostos 20240908.xlsx
+                        |-- Detalle Sobrecostos 20240909.xlsx
+                        |-- Detalle Sobrecostos 20240910.xlsx
+                        |-- Detalle Sobrecostos 20240911.xlsx
+                        |-- Detalle Sobrecostos 20240912.xlsx
+                        |-- Detalle Sobrecostos 20240913.xlsx
+                        |-- Detalle Sobrecostos 20240914.xlsx
+                        |-- Detalle Sobrecostos 20240915.xlsx
+                        |-- Detalle Sobrecostos 20240916.xlsx
+                        |-- Detalle Sobrecostos 20240917.xlsx
+                        |-- Detalle Sobrecostos 20240918.xlsx
+                        |-- Detalle Sobrecostos 20240919.xlsx
+                        |-- Detalle Sobrecostos 20240920.xlsx
+                        |-- Detalle Sobrecostos 20240921.xlsx
+                        |-- Detalle Sobrecostos 20240922.xlsx
+                        |-- Detalle Sobrecostos 20240923.xlsx
+                        |-- Detalle Sobrecostos 20240924.xlsx
+                        |-- Detalle Sobrecostos 20240925.xlsx
+                        |-- Detalle Sobrecostos 20240926.xlsx
+                        |-- Detalle Sobrecostos 20240927.xlsx
+                        |-- Detalle Sobrecostos 20240928.xlsx
+                        |-- Detalle Sobrecostos 20240929.xlsx
+                        |-- Detalle Sobrecostos 20240930.xlsx
+                    |-- Prorratas Sobrecostos PD.xlsx
+                |-- 03 Prorratas Líneas
+                    |-- 02. ProrratasBT_sep24_def.xlsx
+                    |-- VATT Zonal y Dedicado 2020-2023 7T 2409 def.xlsx
+                |-- 04 Prorratas de Retiros
+                    |-- Prorrata_Retiros_2409_def.xlsx
+                |-- 05 Contratos de compraventa
+                    |-- Contratos_Generadores_2409_Fisicos_Medidas.xlsx
+            |-- 02 Antecedentes de Cálculo_2409_BD01 - 3
+                |-- Medidas_Valorizadas_15min_2409_NORTE.xlsb
+                |-- Medidas_Valorizadas_15min_2409_NORTE_DX.xlsb
+                |-- Medidas_Valorizadas_15min_2409_SUR.xlsb
+                |-- Medidas_Valorizadas_15min_2409_SUR_DX.xlsb
+            |-- 03 Bases de Datos_2409_BD01 - 1
+                |-- 01 Balance
+                    |-- BD_balance_valorizado_2409_Data_BASE_BASE_LT.zip
+                    |-- Medidas_2409_15min.zip
+                |-- 02 Contratos Físicos
+                    |-- BBDD Contratos fisicos 2409 def.zip
+            |-- 03 Bases de Datos_2409_BD01 - 2
+                |-- 03 Cmg
+                    |-- Fpen_Reales_Consolidado.zip
+                    |-- cmg2409_def_15minutal.zip
+                |-- 04 Valorizado
+                    |-- Balance_Valorizado_2409_Data_VALORIZADO_15min
+                        |-- Balance_Valorizado_2409_Data_VALORIZADO_15min.csv
+                        |-- Balance_Valorizado_2409_Data_VALORIZADO_15min.zip
+            |-- 03 Bases de Datos_2409_BD01 - 3
+                |-- RETIROS_2409.zip
+                |-- Retiros_2409_15min.zip
+    |-- raw
+        |-- 202407
+        |-- 202408
+            |-- 01-Resultados_2408_BD01_20241214_164627.zip
+            |-- 02-Antecedentes-de-Calculo_2408_BD01-1_20241214_164630.zip
+            |-- 02-Antecedentes-de-Calculo_2408_BD01-2_20241214_164633.zip
+            |-- 02-Antecedentes-de-Calculo_2408_BD01-3_20241214_164637.zip
+            |-- 03-Bases-de-Datos_2408_BD01-1_20241214_164637.zip
+            |-- 03-Bases-de-Datos_2408_BD01-2_20241214_164638.zip
+            |-- 03-Bases-de-Datos_2408_BD01-3_20241214_164639.zip
+        |-- 202409
+        |-- 202410
+|-- estructura_proyecto.txt
+|-- logs
+    |-- process.log
+|-- main.py
+|-- notebooks
+|-- readme.MD
+|-- requirements.txt
+|-- scripts
+|-- setup.py
+|-- src
+    |-- __init__.py
+    |-- database
+    |-- etl
+        |-- __init__.py
+        |-- data_extractor.py
+        |-- file_registry
+            |-- __init__.py
+            |-- exceptions.py
+            |-- file_definition.py
+            |-- file_index.py
+            |-- file_location.py
+            |-- file_registry.py
+    |-- processors
+        |-- __init__.py
+        |-- balance_processor.py
+        |-- base_processor.py
+        |-- contratos_processor.py
+        |-- costos_variables_processor.py
+        |-- precio_estabilizado_processor.py
+        |-- sobrecostos_processor.py
+        |-- sscc_processor.py
+        |-- transmision_processor.py
+    |-- utils
+        |-- __init__.py
+        |-- config_loader.py
+        |-- file_handler.py
+        |-- period_handler.py
+        |-- zip_handler.py
+|-- tests

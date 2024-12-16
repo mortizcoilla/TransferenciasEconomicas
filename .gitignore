@@ -1,0 +1,67 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+virtualenv/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Archivos de desarrollo y IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Archivos de log
+logs/
+*.log
+
+# Archivos temporales
+*.tmp
+~$*
+*.bak
+*.swp
+
+# Archivos de datos específicos del proyecto
+data/raw/*
+data/processed/*
+data/archive/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/archive/.gitkeep
+
+# Archivos de configuración local
+.env
+.env.local
+*.local.yml
+
+# Archivos de Excel temporales
+~$*.xls*
+~$*.xlsx
+~$*.xlsm
+~$*.xlsb
+
+# Archivos de prueba
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Archivos de documentación generados
+docs/_build/
+_build/

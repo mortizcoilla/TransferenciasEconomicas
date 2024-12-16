@@ -1,0 +1,214 @@
+# Configuraciones base del sistema
+paths:
+  root: "C:/Workspace/TransferenciasEconomicas"
+  raw: "C:/Workspace/TransferenciasEconomicas/data/raw"
+  processed: "C:/Workspace/TransferenciasEconomicas/data/processed"
+  archive: "C:/Workspace/TransferenciasEconomicas/data/archive"
+  logs: "C:/Workspace/TransferenciasEconomicas/logs"
+
+# Configuración de la base de datos
+database:
+  host: "localhost"
+  port: 3306
+  database: "transferencias_economicas"
+  user: "root"
+  password: ""
+
+# Configuración de logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/process.log"
+
+# Configuración del registro de archivos
+file_registry:
+  # Variables de ruta
+  path_variables:
+    bases: "03 Bases-de-Datos_{periodo}_BD01"
+    resultados: "01 Resultados_{periodo}_BD01"
+    antecedentes: "02 Antecedentes-de-Calculo_{periodo}_BD01"
+
+  # Estructura de directorios
+  directory_structure:
+    resultados:
+      path: "{resultados}"
+      contains:
+        - "balance"
+        - "precio_estabilizado"
+        - "sobrecostos"
+        - "contratos"
+    antecedentes:
+      path: "{antecedentes}"
+      contains:
+        - "costos_variables"
+        - "servicios_complementarios"
+    bases:
+      path: "{bases}"
+      contains:
+        - "balance_valorizado"
+        - "medidas"
+
+  # Definición de archivos
+  files:
+    medidas:
+      file_type: "medidas"
+      required: true
+      requires_sheets: false
+      locations:
+        - path: "{bases}/01 Balance"
+          patterns:
+            - "Medidas_{periodo}_15min.csv"
+            - "BD_balance_valorizado_{periodo}_Data_BASE_BASE_LT.csv"
+      format: "csv"
+      encoding: "utf-8"
+      validation:
+        required_columns:
+          - "fecha"
+          - "hora"
+          - "valor"
+        data_types:
+          fecha: "datetime"
+          hora: "int"
+          valor: "float"
+        dependencies: []
+
+    balance_valorizado:
+      file_type: "balance"
+      required: true
+      requires_sheets: false
+      locations:
+        - path: "{resultados}/01 Balance de Energía/01 Balance Valorizado"
+          patterns:
+            - "Balance_{periodo}_BD01.xlsm"
+            - "Balance_Valorizado_{periodo}_*.csv"
+        - path: "{bases}/01 Balance"
+          patterns:
+            - "Balance_Valorizado_{periodo}_Data_VALORIZADO_15min.csv"
+      format: "csv"
+      encoding: "utf-8"
+      validation:
+        required_columns:
+          - "nombre_barra"
+          - "propietario"
+          - "descripcion"
+          - "tipo1"
+          - "hora_mensual"
+          - "MedidaHoraria"
+          - "CMG_PESO_KWH"
+          - "VALORIZADO_PESOS"
+        data_types:
+          nombre_barra: "string"
+          MedidaHoraria: "float"
+          CMG_PESO_KWH: "float"
+        dependencies:
+          - "medidas"
+
+    sobrecostos:
+      file_type: "sobrecostos"
+      required: true
+      requires_sheets: false
+      locations:
+        - path: "{antecedentes}/02 Sobrecostos/Detalles Diarios"
+          patterns:
+            - "Detalle Sobrecostos *.xlsx"
+            - "Sobrecostos_PD_{periodo}_*.xlsm"
+      format: "xlsx"
+      validation:
+        required_columns:
+          - "fecha"
+          - "hora"
+          - "central"
+          - "tipo"
+          - "Sobrecosto_CLP"
+        data_types:
+          fecha: "datetime"
+          hora: "int"
+          Sobrecosto_CLP: "float"
+        dependencies:
+          - "balance_valorizado"
+
+    precio_estabilizado:
+      file_type: "precio_estabilizado"
+      required: true
+      requires_sheets: true
+      locations:
+        - path: "{resultados}/01 Balance de Energía/03 Precio Estabilizado"
+          patterns:
+            - "Precio_estabilizado_{periodo}.xlsb"
+      format: "xlsb"
+      sheets:
+        - name: "INYECCIONES_VALORIZADAS_SUR"
+          required: true
+        - name: "INYECCIONES_VALORIZADAS_NORTE"
+          required: true
+        - name: "COMPENSACION"
+          required: true
+      validation:
+        required_columns: [] # Se valida por hojas
+        data_types: {}
+        dependencies:
+          - "balance_valorizado"
+
+    costos_variables:
+      file_type: "costos"
+      required: true
+      requires_sheets: false
+      locations:
+        - path: "{antecedentes}/02 Costos Variables"
+          patterns:
+            - "cv_{periodo}*.csv"
+            - "Costos_Variables_{periodo}*.xlsx"
+      format: "csv"
+      encoding: "utf-8"
+      validation:
+        required_columns:
+          - "Central"
+          - "Emax"
+          - "cv"
+          - "periodo"
+        data_types:
+          Emax: "float"
+          cv: "float"
+        dependencies: []
+
+    servicios_complementarios:
+      file_type: "sscc"
+      required: true
+      requires_sheets: false
+      locations:
+        - path: "{antecedentes}/SSCC"
+          patterns:
+            - "sscc_{periodo}.csv"
+            - "SSCC_{periodo}.xlsx"
+      format: "csv"
+      encoding: "utf-8"
+      validation:
+        required_columns:
+          - "concepto"
+          - "empresa"
+          - "recibe"
+          - "paga"
+          - "sen"
+        data_types:
+          recibe: "float"
+          paga: "float"
+          sen: "float"
+        dependencies: []
+
+  # Configuración de procesamiento
+  processing:
+    batch_size: 1000
+    validation_level: "strict"
+    cache:
+      enabled: true
+      expiry: 3600
+    error_handling:
+      max_retries: 3
+      retry_delay: 5
+    thread_pool: 4
+
+  # Configuración de versiones
+  versioning:
+    pattern: "BD{version}-{subversion}"
+    default_version: "01"
+    track_changes: true
