@@ -1,214 +1,325 @@
-# Configuraciones base del sistema
+# Configuraciones base del sistema - Define las rutas principales del proyecto
 paths:
   root: "C:/Workspace/TransferenciasEconomicas"
   raw: "C:/Workspace/TransferenciasEconomicas/data/raw"
+  unzipped: "C:/Workspace/TransferenciasEconomicas/data/unzipped"
   processed: "C:/Workspace/TransferenciasEconomicas/data/processed"
   archive: "C:/Workspace/TransferenciasEconomicas/data/archive"
   logs: "C:/Workspace/TransferenciasEconomicas/logs"
 
-# Configuración de la base de datos
-database:
-  host: "localhost"
-  port: 3306
-  database: "transferencias_economicas"
-  user: "root"
-  password: ""
+# Configuración del sistema
+api:
+  usuario: "mortizcoilla@gmail.com"
+  contraseña: "LtRb.8yWTUEt7bP"
 
-# Configuración de logging
+# Configuración de conexión a base de datos
+database:
+  host: "172.29.0.5"
+  port: 3306
+  user: "miguel"
+  password: "m"
+
+# Configuración del sistema de logging
 logging:
-  level: "INFO"
+  level: "DEBUG"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
   file: "logs/process.log"
+# Patrones para la identificación y organización de archivos
+file_patterns:
+  sscc_balance:
+    patterns:
+      - "Balance_SSCC_*_def.zip"
+    required: true
+    destination: "Balance_SSCC_{periodo}_def/"
+    description: "Balance SSCC"
 
-# Configuración del registro de archivos
+  balance:
+    patterns:
+      - "**/Balance_*_BD01.xlsm"
+      - "**/Balance_{periodo}_BD01.xlsm"
+    required: true
+    destination: "balance/"
+    description: "Balance Valorizado"
+
+  precio_estabilizado:
+    patterns:
+      - "**/Precio_estabilizado_*.xlsb"
+      - "**/Precio_estabilizado_{periodo}.xlsb"
+    required: true
+    destination: "precio_estabilizado/"
+    description: "Precio Estabilizado"
+
+  contratos_fisicos:
+    patterns:
+      - "**/Contratos_Generadores_*_Fisicos_Resultados.xlsx"
+      - "**/Contratos_*_Fisicos_Resultados.xlsx"
+    required: true
+    destination: "contratos/fisicos/"
+    description: "Contratos Físicos"
+
+  contratos_financieros:
+    patterns:
+      - "**/Contratos_Generadores_*_Financieros.xlsb"
+      - "**/Contratos_*_Financieros.xlsb"
+    required: true
+    destination: "contratos/financieros/"
+    description: "Contratos Financieros"
+
+  sobrecostos:
+    patterns:
+      - "**/Detalle Sobrecostos *.xlsx"
+      - "**/Detalles Diarios/Detalle Sobrecostos *.xlsx"
+    required: true
+    destination: "sobrecostos/diarios/"
+    description: "Sobrecostos Diarios"
+
+  contratos_medidas:
+    patterns:
+      - "**/Contratos_Generadores_*_Fisicos_Medidas.xlsx"
+      - "**/Contratos_*_Medidas.xlsx"
+    required: true
+    destination: "contratos/medidas/"
+    description: "Medidas de Contratos"
+
+  cmg:
+    patterns:
+      - "**/cmg*_def_15minutal.csv"
+      - "**/cmg{periodo}_def_15minutal.csv"
+    required: true
+    destination: "cmg/"
+    description: "Costos Marginales"
+
+  factores_penalizacion:
+    patterns:
+      - "**/Fpen_Reales_Def_Consolidado.tsv"
+      - "**/Fpen_*.tsv"
+    required: true
+    destination: "cmg/"
+    description: "Factores de Penalización"
+
+  balance_valorizado:
+    patterns:
+      - "**/Balance_Valorizado_*_Data_VALORIZADO_15min.csv"
+      - "**/Balance_Valorizado_{periodo}_*.csv"
+    required: true
+    destination: "valorizado/"
+    description: "Balance Valorizado Detallado"
+
+  sscc:
+    patterns:
+      - "**/1_CUADROS_PAGO_SSCC_*_def.xlsm"
+      - "**/CUADROS_PAGO_SSCC_*_def.xlsm"
+    required: true
+    destination: "sscc/"
+    description: "Servicios Complementarios"
+
+  cmg_diario:
+    patterns:
+      - "**/CMg_Real_{periodo}*.csv"
+    required: true
+    destination: "cmg/diario/{fecha}/"
+    description: "CMG Real Diario"
+
+  programa_operacion:
+    patterns:
+      - "**/Programa_Operacion_{periodo}*.xlsx"
+    required: true
+    destination: "operacion/diario/{fecha}/"
+    description: "Programa de Operación Diario"
+
+  vertimientos:
+    patterns:
+      - "**/Vertimientos_{periodo}*.xlsx"
+    required: true
+    destination: "vertimientos/diario/{fecha}/"
+    description: "Vertimientos Diarios"
+
+# Categorización de archivos por tipo de proceso
+file_categories:
+  balance:
+    - balance_valorizado
+    - precio_estabilizado
+  contratos:
+    - contratos_fisicos
+    - contratos_financieros
+    - contratos_medidas
+  operacion:
+    - cmg
+    - factores_penalizacion
+    - sobrecostos
+  sscc:
+    - sscc
+  operacion_diaria:
+    - cmg_diario
+    - programa_operacion
+    - vertimientos
+
+# Configuración del registro y validación de archivos
 file_registry:
-  # Variables de ruta
+  # Variables para reemplazo en rutas
   path_variables:
-    bases: "03 Bases-de-Datos_{periodo}_BD01"
     resultados: "01 Resultados_{periodo}_BD01"
     antecedentes: "02 Antecedentes-de-Calculo_{periodo}_BD01"
+    bases: "03 Bases-de-Datos_{periodo}_BD01"
 
-  # Estructura de directorios
+  # Estructura esperada de directorios
   directory_structure:
     resultados:
-      path: "{resultados}"
-      contains:
-        - "balance"
-        - "precio_estabilizado"
-        - "sobrecostos"
-        - "contratos"
+      name: "01-Resultados"
+      patterns:
+        - "01-Resultados_{periodo}_BD01.zip"
+        - "01-Resultados_BD01-1.zip"
+        - "01-Resultados_BD01.zip"
     antecedentes:
-      path: "{antecedentes}"
-      contains:
-        - "costos_variables"
-        - "servicios_complementarios"
+      name: "02-Antecedentes-de-Calculo"
+      patterns:
+        - "02-Antecedentes-de-Calculo_{periodo}_BD01-1.zip"
+        - "02-Antecedentes-de-Calculo_{periodo}_BD01-2.zip"
+        - "02-Antecedentes-de-Calculo_{periodo}_BD01-3.zip"
     bases:
-      path: "{bases}"
-      contains:
-        - "balance_valorizado"
-        - "medidas"
+      name: "03-Bases-de-Datos"
+      patterns:
+        - "03-Bases-de-Datos_{periodo}_BD01-1.zip"
+        - "03-Bases-de-Datos_{periodo}_BD01-2.zip"
+        - "03-Bases-de-Datos_{periodo}_BD01-3.zip"
 
-  # Definición de archivos
+  # Definición detallada de archivos y sus validaciones
   files:
-    medidas:
-      file_type: "medidas"
-      required: true
-      requires_sheets: false
-      locations:
-        - path: "{bases}/01 Balance"
-          patterns:
-            - "Medidas_{periodo}_15min.csv"
-            - "BD_balance_valorizado_{periodo}_Data_BASE_BASE_LT.csv"
-      format: "csv"
-      encoding: "utf-8"
-      validation:
-        required_columns:
-          - "fecha"
-          - "hora"
-          - "valor"
-        data_types:
-          fecha: "datetime"
-          hora: "int"
-          valor: "float"
-        dependencies: []
-
     balance_valorizado:
-      file_type: "balance"
+      file_type: "balance_valorizado"
       required: true
-      requires_sheets: false
       locations:
-        - path: "{resultados}/01 Balance de Energía/01 Balance Valorizado"
-          patterns:
-            - "Balance_{periodo}_BD01.xlsm"
-            - "Balance_Valorizado_{periodo}_*.csv"
-        - path: "{bases}/01 Balance"
+        - path: "{bases}/04 Valorizado"
           patterns:
             - "Balance_Valorizado_{periodo}_Data_VALORIZADO_15min.csv"
       format: "csv"
       encoding: "utf-8"
       validation:
-        required_columns:
-          - "nombre_barra"
-          - "propietario"
-          - "descripcion"
-          - "tipo1"
-          - "hora_mensual"
-          - "MedidaHoraria"
-          - "CMG_PESO_KWH"
-          - "VALORIZADO_PESOS"
-        data_types:
-          nombre_barra: "string"
-          MedidaHoraria: "float"
-          CMG_PESO_KWH: "float"
-        dependencies:
-          - "medidas"
+        required_columns: []
+        data_types: {}
+        dependencies: []
 
-    sobrecostos:
-      file_type: "sobrecostos"
+    balance:
+      file_type: "balance"
       required: true
-      requires_sheets: false
       locations:
-        - path: "{antecedentes}/02 Sobrecostos/Detalles Diarios"
+        - path: "{resultados}/01 Balance de Energía/01 Balance Valorizado"
           patterns:
-            - "Detalle Sobrecostos *.xlsx"
-            - "Sobrecostos_PD_{periodo}_*.xlsm"
-      format: "xlsx"
+            - "Balance_{periodo}_BD01.xlsm"
+      format: "xlsm"
+      requires_sheets: true
       validation:
-        required_columns:
-          - "fecha"
-          - "hora"
-          - "central"
-          - "tipo"
-          - "Sobrecosto_CLP"
-        data_types:
-          fecha: "datetime"
-          hora: "int"
-          Sobrecosto_CLP: "float"
-        dependencies:
-          - "balance_valorizado"
+        required_sheets:
+          - "ASIGNACIÓN Dx"
 
     precio_estabilizado:
       file_type: "precio_estabilizado"
       required: true
-      requires_sheets: true
       locations:
         - path: "{resultados}/01 Balance de Energía/03 Precio Estabilizado"
           patterns:
             - "Precio_estabilizado_{periodo}.xlsb"
       format: "xlsb"
-      sheets:
-        - name: "INYECCIONES_VALORIZADAS_SUR"
-          required: true
-        - name: "INYECCIONES_VALORIZADAS_NORTE"
-          required: true
-        - name: "COMPENSACION"
-          required: true
+      requires_sheets: true
       validation:
-        required_columns: [] # Se valida por hojas
+        required_columns: []
         data_types: {}
-        dependencies:
-          - "balance_valorizado"
+        dependencies: []
 
-    costos_variables:
-      file_type: "costos"
+    contratos_fisicos:
+      file_type: "contratos_fisicos"
       required: true
-      requires_sheets: false
       locations:
-        - path: "{antecedentes}/02 Costos Variables"
+        - path: "{resultados}/01 Balance de Energía/05 Contratos entre Generadores"
           patterns:
-            - "cv_{periodo}*.csv"
-            - "Costos_Variables_{periodo}*.xlsx"
+            - "Contratos_Generadores_{periodo}_Fisicos_Resultados.xlsx"
+      format: "xlsx"
+      requires_sheets: true
+      validation:
+        required_columns: []
+        data_types: {}
+        dependencies: []
+
+    contratos_financieros:
+      file_type: "contratos_financieros"
+      required: true
+      locations:
+        - path: "{resultados}/01 Balance de Energía/05 Contratos entre Generadores"
+          patterns:
+            - "Contratos_Generadores_{periodo}_Financieros.xlsb"
+      format: "xlsb"
+      requires_sheets: true
+      validation:
+        required_columns: []
+        data_types: {}
+        dependencies: []
+
+    sobrecostos:
+      file_type: "sobrecostos"
+      required: true
+      locations:
+        - path: "{antecedentes}/02 Sobrecostos/Detalles Diarios"
+          patterns:
+            - "Detalle Sobrecostos *.xlsx"
+      format: "xlsx"
+      requires_sheets: true
+      validation:
+        required_columns: []
+        data_types: {}
+        dependencies: []
+
+    contratos_medidas:
+      file_type: "contratos_medidas"
+      required: true
+      locations:
+        - path: "{antecedentes}/05 Contratos de compraventa"
+          patterns:
+            - "Contratos_Generadores_{periodo}_Fisicos_Medidas.xlsx"
+      format: "xlsx"
+      requires_sheets: true
+      validation:
+        required_columns: []
+        data_types: {}
+        dependencies: []
+
+    cmg:
+      file_type: "cmg"
+      required: true
+      locations:
+        - path: "{bases}/03 Cmg"
+          patterns:
+            - "cmg{periodo}_def_15minutal.csv"
       format: "csv"
       encoding: "utf-8"
       validation:
-        required_columns:
-          - "Central"
-          - "Emax"
-          - "cv"
-          - "periodo"
-        data_types:
-          Emax: "float"
-          cv: "float"
+        required_columns: []
+        data_types: {}
         dependencies: []
 
-    servicios_complementarios:
+    factores_penalizacion:
+      file_type: "factores_penalizacion"
+      required: true
+      locations:
+        - path: "{bases}/03 Cmg"
+          patterns:
+            - "Fpen_Reales_Def_Consolidado.tsv"
+      format: "tsv"
+      encoding: "utf-8"
+      validation:
+        required_columns: []
+        data_types: {}
+        dependencies: []
+
+    sscc:
       file_type: "sscc"
       required: true
-      requires_sheets: false
       locations:
-        - path: "{antecedentes}/SSCC"
+        - path: ""
           patterns:
-            - "sscc_{periodo}.csv"
-            - "SSCC_{periodo}.xlsx"
-      format: "csv"
-      encoding: "utf-8"
+            - "1_CUADROS_PAGO_SSCC_{periodo}_def.xlsm"
+      format: "xlsm"
+      requires_sheets: true
       validation:
-        required_columns:
-          - "concepto"
-          - "empresa"
-          - "recibe"
-          - "paga"
-          - "sen"
-        data_types:
-          recibe: "float"
-          paga: "float"
-          sen: "float"
+        required_columns: []
+        data_types: {}
         dependencies: []
-
-  # Configuración de procesamiento
-  processing:
-    batch_size: 1000
-    validation_level: "strict"
-    cache:
-      enabled: true
-      expiry: 3600
-    error_handling:
-      max_retries: 3
-      retry_delay: 5
-    thread_pool: 4
-
-  # Configuración de versiones
-  versioning:
-    pattern: "BD{version}-{subversion}"
-    default_version: "01"
-    track_changes: true

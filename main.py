@@ -1,216 +1,197 @@
 """
-Punto de entrada principal para el procesamiento de Transferencias Económicas.
+Punto de entrada principal para la organización de archivos de Transferencias Económicas.
 """
 
 import logging
 import os
 import sys
-from typing import Dict, Optional
-
-import pandas as pd
+from datetime import datetime
+from pathlib import Path
+from typing import Dict
 
 from src.utils.config_loader import ConfigLoader
 from src.utils.zip_handler import ZipHandler
 from src.utils.period_handler import PeriodHandler
-from src.etl.data_extractor import DataExtractor
-from src.processors.balance_processor import BalanceProcessor
-from src.processors.sobrecostos_processor import SobrecostosProcessor
-from src.processors.precio_estabilizado_processor import PrecioEstabilizadoProcessor
-from src.processors.costos_variables_processor import CostosVariablesProcessor
-from src.processors.transmision_processor import TransmisionProcessor
-from src.processors.sscc_processor import SSCCProcessor
-from src.etl.file_registry import FileRegistryError, FileNotFoundError
+from src.etl.file_organizer import FileOrganizer
+from src.validators.validate_balance_valorizado import ValidateBalanceValorizado
+
 
 def setup_logging(config: Dict) -> None:
     """
-    Configura el sistema de logging.
-    
+    Configura el sistema de logging para seguimiento y depuración.
+
     Args:
-        config: Configuración del sistema
+        config: Configuración con parámetros de logging
     """
-    log_config = config.get('logging', {})
-    log_path = os.path.dirname(log_config.get('file', 'logs/process.log'))
+    log_config = config.get("logging", {})
+    log_path = os.path.dirname(log_config.get("file", "logs/process.log"))
     os.makedirs(log_path, exist_ok=True)
-    
+
     logging.basicConfig(
-        level=log_config.get('level', 'INFO'),
-        format=log_config.get('format', '%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+        level=log_config.get("level", "INFO"),
+        format=log_config.get(
+            "format", "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        ),
         handlers=[
-            logging.FileHandler(log_config.get('file', 'logs/process.log')),
-            logging.StreamHandler()
-        ]
+            logging.FileHandler(log_config.get("file", "logs/process.log")),
+            logging.StreamHandler(),
+        ],
     )
 
-def process_data(periodo: str, data: Dict[str, pd.DataFrame]) -> Dict[str, Dict]:
-    """
-    Ejecuta los procesadores específicos para cada tipo de dato.
-    
-    Args:
-        periodo: Periodo a procesar
-        data: Diccionario con los DataFrames extraídos
-        
-    Returns:
-        Dict: Resultados del procesamiento por tipo
-    """
-    logger = logging.getLogger(__name__)
-    results = {}
-
-    processors = [
-        ('balance', BalanceProcessor(periodo, data)),
-        ('sobrecostos', SobrecostosProcessor(periodo, data)),
-        ('precio_estabilizado', PrecioEstabilizadoProcessor(periodo, data)),
-        ('costos_variables', CostosVariablesProcessor(periodo, data)),
-        ('transmision', TransmisionProcessor(periodo, data)),
-        ('sscc', SSCCProcessor(periodo, data))
-    ]
-
-    for name, processor in processors:
-        logger.info(f"Iniciando procesamiento de {name}...")
-        
-        try:
-            if processor.process():
-                results[name] = processor.get_processed_data()
-                logger.info(f"Procesamiento de {name} completado exitosamente")
-            else:
-                logger.error(f"Error en el procesamiento de {name}")
-                errors = processor.get_errors()
-                for error_type, message in errors.items():
-                    logger.error(f"{error_type}: {message}")
-                results[name] = None
-        
-        except Exception as e:
-            logger.error(f"Error inesperado procesando {name}: {str(e)}")
-            results[name] = None
-
-    return results
 
 def validate_directories(config: Dict) -> bool:
     """
-    Valida que existan los directorios necesarios.
-    
+    Valida y crea los directorios necesarios para el procesamiento.
+
     Args:
-        config: Configuración del sistema
-        
+        config: Configuración con rutas de directorios
+
     Returns:
-        bool: True si todos los directorios existen o fueron creados
+        bool: True si la validación es exitosa
     """
     logger = logging.getLogger(__name__)
-    paths = config.get('paths', {})
-    
+    paths = config.get("paths", {})
+
     try:
         for path_name, path in paths.items():
             os.makedirs(path, exist_ok=True)
-            logger.info(f"Directorio {path_name} validado: {path}")
+            logger.debug(f"Directorio {path_name} validado: {path}")
         return True
-    
     except Exception as e:
         logger.error(f"Error validando directorios: {str(e)}")
         return False
 
-def export_results(results: Dict, periodo: str, config: Dict) -> None:
+
+def process_zip_files(zip_handler: ZipHandler, periodo: str) -> bool:
     """
-    Exporta los resultados del procesamiento.
-    
+    Procesa los archivos ZIP del periodo especificado.
+
     Args:
-        results: Resultados del procesamiento
-        periodo: Periodo procesado
-        config: Configuración del sistema
+        zip_handler: Instancia de ZipHandler para procesar archivos
+        periodo: Periodo a procesar
+
+    Returns:
+        bool: True si el procesamiento fue exitoso
     """
     logger = logging.getLogger(__name__)
-    export_path = os.path.join(config['paths']['processed'], periodo, 'results')
-    os.makedirs(export_path, exist_ok=True)
 
     try:
-        for process_type, data in results.items():
-            if data is not None:
-                # Guardar resultados según el tipo
-                if isinstance(data, dict):
-                    for key, value in data.items():
-                        if isinstance(value, pd.DataFrame):
-                            filename = f"{process_type}_{key}_{periodo}.csv"
-                            value.to_csv(os.path.join(export_path, filename), index=False)
-                            logger.info(f"Resultados guardados: {filename}")
-                elif isinstance(data, pd.DataFrame):
-                    filename = f"{process_type}_{periodo}.csv"
-                    data.to_csv(os.path.join(export_path, filename), index=False)
-                    logger.info(f"Resultados guardados: {filename}")
-    
+        # Procesar archivos ZIP principales
+        if not zip_handler.process_period_zips(periodo):
+            logger.error("Error procesando archivos ZIP principales")
+            return False
+
+        logger.info("Archivos ZIP procesados correctamente")
+
+        # Extraer archivos ZIP anidados
+        unzipped_path = os.path.join(zip_handler.unzipped_path, periodo)
+        if not zip_handler.extract_all_nested_zips(unzipped_path):
+            logger.error("Error extrayendo archivos ZIP anidados")
+            return False
+
+        logger.info("Archivos ZIP anidados extraídos correctamente")
+        return True
+
     except Exception as e:
-        logger.error(f"Error exportando resultados: {str(e)}")
+        logger.error(f"Error en procesamiento de ZIP: {str(e)}")
+        return False
+
+
+def organize_files(config: Dict, periodo: str) -> bool:
+    """
+    Organiza los archivos extraídos en la estructura final.
+
+    Args:
+        config: Configuración del sistema
+        periodo: Periodo a procesar
+
+    Returns:
+        bool: True si la organización fue exitosa
+    """
+    logger = logging.getLogger(__name__)
+
+    try:
+        file_organizer = FileOrganizer(config, periodo)
+        success = file_organizer.organize()
+
+        if not success:
+            errors = file_organizer.get_errors()
+            for error_type, message in errors.items():
+                logger.error(f"{error_type}: {message}")
+
+        return success
+
+    except Exception as e:
+        logger.error(f"Error en organización de archivos: {str(e)}")
+        return False
+
 
 def main() -> None:
-    """Función principal del proceso."""
+    """
+    Función principal que coordina todo el proceso de organización de archivos.
+
+    Esta función implementa el flujo de trabajo completo:
+    1. Configuración inicial y logging
+    2. Validación de directorios
+    3. Procesamiento de archivos ZIP
+    4. Organización final de archivos
+    """
+    start_time = datetime.now()
+
     try:
-        # Cargar configuración
+        # Configuración inicial
         config = ConfigLoader()
         config_data = config.get_config()
-        
-        # Configurar logging
         setup_logging(config_data)
         logger = logging.getLogger(__name__)
-        
-        # Validar directorios
+
+        logger.info("Iniciando proceso de organización de archivos")
+        logger.info(f"Hora de inicio: {start_time}")
+
+        # Validar directorios base
         if not validate_directories(config_data):
             logger.error("Error en la validación de directorios")
             sys.exit(1)
-        
+
         # Obtener periodo a procesar
-        periodo = PeriodHandler.get_period_input(config_data['paths']['raw'])
+        periodo = PeriodHandler.get_period_input(config_data["paths"]["raw"])
         if not periodo:
             logger.error("No se pudo obtener un periodo válido para procesar")
             sys.exit(1)
-        
-        logger.info(f"Iniciando procesamiento para periodo {periodo}")
-        
+        logger.info(f"Procesando periodo: {periodo}")
+
         # Procesar archivos ZIP
         zip_handler = ZipHandler(
-            raw_path=config_data['paths']['raw'],
-            processed_path=config_data['paths']['processed'],
-            archive_path=config_data['paths']['archive']
+            raw_path=config_data["paths"]["raw"],
+            unzipped_path=config_data["paths"]["unzipped"],
+            archive_path=config_data["paths"]["archive"],
         )
-        
-        if not zip_handler.process_period_zips(periodo):
-            logger.error("Error procesando archivos ZIP")
+
+        if not process_zip_files(zip_handler, periodo):
             sys.exit(1)
-        
-        logger.info("Archivos ZIP procesados correctamente")
-        
-        # Extraer datos
-        logger.info("Iniciando extracción de datos...")
-        data_extractor = DataExtractor(periodo)
-        
-        try:
-            if not data_extractor.validate_required_files():
-                logger.error("No se encontraron todos los archivos requeridos")
-                sys.exit(1)
-            
-            if not data_extractor.extract_all():
-                logger.error("Error en la extracción de datos")
-                sys.exit(1)
-            
-            extracted_data = data_extractor.get_extracted_data()
-            logger.info(f"Datos extraídos exitosamente: {list(extracted_data.keys())}")
-            
-            # Procesar datos
-            logger.info("Iniciando procesamiento de datos...")
-            results = process_data(periodo, extracted_data)
-            
-            # Exportar resultados
-            logger.info("Exportando resultados...")
-            export_results(results, periodo, config_data)
-            
-            logger.info("Procesamiento completado exitosamente")
-        
-        except (FileRegistryError, FileNotFoundError) as e:
-            logger.error(f"Error en el registro de archivos: {str(e)}")
+
+        # Organizar archivos
+        if not organize_files(config_data, periodo):
             sys.exit(1)
-        except Exception as e:
-            logger.error(f"Error inesperado: {str(e)}")
+
+        # Registrar tiempo total de procesamiento
+        end_time = datetime.now()
+        duration = end_time - start_time
+        logger.info("Proceso completado exitosamente")
+        logger.info(f"Tiempo total de procesamiento: {duration}")
+
+        # Validación de datos Balance Valorizado
+        validator = ValidateBalanceValorizado(config_data)
+        if not validator.load_and_validate(periodo):
+            logger.error("Error en la validación del archivo Balance Valorizado.")
             sys.exit(1)
-    
+        else:
+            logger.info("Validación de Balance Valorizado completada exitosamente.")
+
     except Exception as e:
-        logging.error(f"Error crítico en el proceso principal: {str(e)}")
+        logger.error(f"Error crítico en el proceso principal: {str(e)}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

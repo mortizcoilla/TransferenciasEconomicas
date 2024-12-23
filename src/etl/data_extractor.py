@@ -5,14 +5,15 @@ Módulo para la extracción y validación inicial de datos.
 import logging
 from typing import Dict, Optional
 import pandas as pd
+import openpyxl
 
 from src.utils.config_loader import ConfigLoader
 from .file_registry import FileRegistry, FileRegistryError, FileNotFoundError
 
 logger = logging.getLogger(__name__)
 
+
 class DataExtractor:
-    """Clase para extraer y validar datos de los archivos procesados."""
 
     def __init__(self, periodo: str):
         """
@@ -36,7 +37,7 @@ class DataExtractor:
         try:
             locations = self.file_registry.locate_all_files(self.periodo)
             all_valid = True
-            
+
             for file_type, location in locations.items():
                 if location is None:
                     logger.error(f"Archivo requerido no encontrado: {file_type}")
@@ -51,39 +52,21 @@ class DataExtractor:
             return False
 
     def extract_data(self, file_type: str) -> Optional[pd.DataFrame]:
-        """
-        Extrae datos de un archivo específico.
-
-        Args:
-            file_type: Tipo de archivo a extraer
-
-        Returns:
-            Optional[pd.DataFrame]: DataFrame con los datos o None si hay error
-        """
         try:
             location = self.file_registry.locate_file(file_type, self.periodo)
             if not location:
+                logger.error(f"No se encontró la ubicación para {file_type}")
                 return None
 
-            # Obtener la definición del archivo
             definition = self.file_registry.definitions[file_type]
+            logger.info(f"Leyendo archivo: {location}")
 
-            # Leer archivo según su formato
-            if definition.format == 'csv':
-                df = pd.read_csv(location, encoding=definition.encoding)
-            elif definition.format in ['xlsx', 'xlsb', 'xls']:
-                # Para archivos Excel, leer la primera hoja o hoja específica
-                sheet_name = definition.sheets[0].name if definition.sheets else 0
-                df = pd.read_excel(location, sheet_name=sheet_name)
+            if definition.format in ["xlsx", "xlsb", "xls", "xlsm"]:
+                # Lectura simple de Excel sin validación de hojas
+                return pd.read_excel(location)
             else:
-                raise ValueError(f"Formato no soportado: {definition.format}")
-
-            # Validar columnas requeridas
-            if not all(col in df.columns for col in definition.validation.required_columns):
-                missing_cols = set(definition.validation.required_columns) - set(df.columns)
-                raise ValueError(f"Columnas faltantes: {missing_cols}")
-
-            return df
+                # Lectura simple de archivos CSV/TSV
+                return pd.read_csv(location, encoding=definition.encoding)
 
         except Exception as e:
             logger.error(f"Error extrayendo {file_type}: {str(e)}")
@@ -103,7 +86,7 @@ class DataExtractor:
         for file_type in self.file_registry.definitions:
             logger.info(f"Extrayendo {file_type}...")
             df = self.extract_data(file_type)
-            
+
             if df is not None:
                 self.extracted_data[file_type] = df
                 logger.info(f"Extracción exitosa de {file_type}")

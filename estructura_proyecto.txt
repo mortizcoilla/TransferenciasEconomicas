@@ -3,51 +3,102 @@
     |-- config.yml
 |-- data
     |-- archive
-        |-- 202407
-            |-- 01-Resultados_BD01-1_20241214_144607_20241216_001836_20241216_002307_20241216_002907_20241216_003508_20241216_003748_20241216_004522_20241216_005511.zip
-            |-- 02-Antecedentes-de-Calculo_2409_BD01-1_20241214_144609_20241216_001838_20241216_002310_20241216_002910_20241216_003511_20241216_003751_20241216_004525_20241216_005513.zip
-            |-- 02-Antecedentes-de-Calculo_2409_BD01-2_20241214_144612_20241216_001842_20241216_002313_20241216_002913_20241216_003514_20241216_003754_20241216_004528_20241216_005517.zip
-            |-- 02-Antecedentes-de-Calculo_2409_BD01-3-1_20241214_144616_20241216_001845_20241216_002316_20241216_002916_20241216_003517_20241216_003758_20241216_004531_20241216_005520.zip
-            |-- 03-Bases-de-Datos_2409_BD01-1_20241214_144616_20241216_001845_20241216_002317_20241216_002917_20241216_003518_20241216_003758_20241216_004532_20241216_005520.zip
-            |-- 03-Bases-de-Datos_2409_BD01-2_20241214_144637_20241216_001907_20241216_002337_20241216_002937_20241216_003538_20241216_003817_20241216_004551_20241216_005539.zip
-            |-- 03-Bases-de-Datos_2409_BD01-3_20241214_144638_20241216_001908_20241216_002338_20241216_002938_20241216_003539_20241216_003819_20241216_004552_20241216_005540.zip
+    |-- outputs
     |-- processed
         |-- 202407
-            |-- 01 Resultados
+            |-- balance
+                |-- Balance_2407_BD01.xlsm
+            |-- cmg
+                |-- cmg2407_def_15minutal.csv
+            |-- contratos
+                |-- financieros
+                    |-- Contratos_Generadores_2407_Financieros.xlsb
+                |-- fisicos
+                    |-- Contratos_Generadores_2407_Fisicos_Resultados.xlsx
+                |-- medidas
+                    |-- Contratos_Generadores_2407_Fisicos_Medidas.xlsx
+            |-- precio_estabilizado
+                |-- Precio_estabilizado_2407.xlsb
+            |-- sobrecostos
+                |-- diarios
+                    |-- Detalle Sobrecostos 20240701.xlsx
+                    |-- Detalle Sobrecostos 20240702.xlsx
+                    |-- Detalle Sobrecostos 20240703.xlsx
+                    |-- Detalle Sobrecostos 20240704.xlsx
+                    |-- Detalle Sobrecostos 20240705.xlsx
+                    |-- Detalle Sobrecostos 20240706.xlsx
+                    |-- Detalle Sobrecostos 20240707.xlsx
+                    |-- Detalle Sobrecostos 20240708.xlsx
+                    |-- Detalle Sobrecostos 20240709.xlsx
+                    |-- Detalle Sobrecostos 20240710.xlsx
+                    |-- Detalle Sobrecostos 20240711.xlsx
+                    |-- Detalle Sobrecostos 20240712.xlsx
+                    |-- Detalle Sobrecostos 20240713.xlsx
+                    |-- Detalle Sobrecostos 20240714.xlsx
+                    |-- Detalle Sobrecostos 20240715.xlsx
+                    |-- Detalle Sobrecostos 20240716.xlsx
+                    |-- Detalle Sobrecostos 20240717.xlsx
+                    |-- Detalle Sobrecostos 20240718.xlsx
+                    |-- Detalle Sobrecostos 20240719.xlsx
+                    |-- Detalle Sobrecostos 20240720.xlsx
+                    |-- Detalle Sobrecostos 20240721.xlsx
+                    |-- Detalle Sobrecostos 20240722.xlsx
+                    |-- Detalle Sobrecostos 20240723.xlsx
+                    |-- Detalle Sobrecostos 20240724.xlsx
+                    |-- Detalle Sobrecostos 20240725.xlsx
+                    |-- Detalle Sobrecostos 20240726.xlsx
+                    |-- Detalle Sobrecostos 20240727.xlsx
+                    |-- Detalle Sobrecostos 20240728.xlsx
+                    |-- Detalle Sobrecostos 20240729.xlsx
+                    |-- Detalle Sobrecostos 20240730.xlsx
+                    |-- Detalle Sobrecostos 20240731.xlsx
+            |-- sscc
+                |-- 1_CUADROS_PAGO_SSCC_2407_def.xlsm
+            |-- valorizado
+                |-- Balance_Valorizado_2407_Data_VALORIZADO_15min - copia.csv
+                |-- Balance_Valorizado_2407_Data_VALORIZADO_15min.csv
+    |-- raw
+        |-- 202407
+    |-- unzipped
+        |-- 202407
+            |-- 01 Resultados_2407_BD01
                 |-- 01 Balance de Energía
                     |-- 01 Balance Valorizado
-                        |-- Balance_2409_BD01.xlsm
+                        |-- Balance_2407_BD01.xlsm
                         |-- ~$Balance_2308_BD01.xlsm
                         |-- ~$Balance_2312_BP01.xlsm
                     |-- 02 Balance Físico
-                        |-- REVISION_RES_NORTE_2409.xls
-                        |-- REVISION_RES_NORTE_DX_2409.xls
-                        |-- REVISION_RES_SUR_2409.xls
-                        |-- REVISION_RES_SUR_DX_2409.xls
+                        |-- REVISION_RES_NORTE_2407.xls
+                        |-- REVISION_RES_NORTE_DX_2407.xls
+                        |-- REVISION_RES_SUR_2407.xls
+                        |-- REVISION_RES_SUR_DX_2407.xls
                     |-- 03 Precio Estabilizado
-                        |-- Precio_estabilizado_2409.xlsb
+                        |-- Decreto-1T-PNCP-1-2024.pdf
+                        |-- Precio_estabilizado_2407.xlsb
                     |-- 04 Sobrecostos
-                        |-- Consolidado_2409_Definitivo.xlsx
-                        |-- Pago_Sobrecostos_2409_Definitivo.xlsx
-                        |-- Sobrecostos_PD_2409_def.xlsm
+                        |-- Consolidado_2407_Definitivo.xlsx
+                        |-- Pago_Sobrecostos_2407_Definitivo.xlsx
+                        |-- Sobrecostos_PD_2407_def.xlsm
                     |-- 05 Contratos entre Generadores
-                        |-- Contratos_Financieros_2409_Resultados.xlsx
-                        |-- Contratos_Generadores_2409_Fisicos_Resultados.xlsx
+                        |-- Contratos_Generadores_2407_Financieros.xlsb
+                        |-- Contratos_Generadores_2407_Fisicos_Resultados.xlsx
                     |-- 06 Prorratas Líneas
-                        |-- Prorratas_Nacionales_2409.xlsm
-                |-- CPITE_2409.csv
-                |-- CPTEE_2409.csv
-                |-- Cuadros de Pago_Balances_SEN_Sept24_def.xlsb
-            |-- 02 Antecedentes de Cálculo_2409_BD01 - 1
+                        |-- Prorratas_Nacionales_2407.xlsm
+                    |-- 07 Costo de Oportunidad por Reserva Hídrica
+                    |-- 08 Uso RH
+                |-- Cuadros de Pago_Balances_SEN_Jul24_def.xlsb
+            |-- 02 Antecedentes de Cálculo_2407_BD01 - 1
                 |-- 01 Balance Físico
                     |-- 01 Balance Transmisión
                         |-- DATOS
-                            |-- BASE_NORTE_2409.xls
-                            |-- BASE_SUR_2409.xls
+                            |-- BASE_NORTE_2407.xls
+                            |-- BASE_SUR_2407.xls
                             |-- DATOS_EXTRAS_NORTE.xls
                             |-- DATOS_EXTRAS_SUR.xls
-                            |-- MEDIDORES_NORTE_2409.xlsm
-                            |-- MEDIDORES_SUR_2409.xlsm
+                            |-- Homologacion ClavesTF y PRMTE_Norte_Jul24.csv
+                            |-- Homologacion ClavesTF y PRMTE_Sur_Jul24.xlsx
+                            |-- MEDIDORES_NORTE_2407.xlsm
+                            |-- MEDIDORES_SUR_2407.xlsm
                         |-- PLANTILLAS
                             |-- ASIGN_EPSA.xls
                             |-- BEX_PL.xls
@@ -72,93 +123,205 @@
                         |-- SALIDAS
                         |-- TRANSFER_2023_V19_15Min.xlsm
                     |-- 02 Balance Distribución
-                        |-- BASE_NORTE_2409.xlsx
-                        |-- BASE_SUR_2409.xlsx
-                        |-- FR_NORTE_2409.xlsx
-                        |-- FR_SUR_2409.xlsx
-                        |-- MEDIDORES_NORTE_2409.xlsm
-                        |-- MEDIDORES_SUR_2409.xlsm
+                        |-- BASE_NORTE_2407.xlsx
+                        |-- BASE_SUR_2407.xlsx
+                        |-- FR_NORTE_2407.xlsx
+                        |-- FR_SUR_2407.xlsx
+                        |-- MEDIDORES_NORTE_2407.xlsm
+                        |-- MEDIDORES_SUR_2407.xlsm
                         |-- TRANSFER_2023_V15.1_Dx.xls
-            |-- 02 Antecedentes de Cálculo_2409_BD01 - 2
+            |-- 02 Antecedentes de Cálculo_2407_BD01 - 2
                 |-- 02 Sobrecostos
                     |-- Detalles Diarios
-                        |-- Detalle Sobrecostos 20240901.xlsx
-                        |-- Detalle Sobrecostos 20240902.xlsx
-                        |-- Detalle Sobrecostos 20240903.xlsx
-                        |-- Detalle Sobrecostos 20240904.xlsx
-                        |-- Detalle Sobrecostos 20240905.xlsx
-                        |-- Detalle Sobrecostos 20240906.xlsx
-                        |-- Detalle Sobrecostos 20240907.xlsx
-                        |-- Detalle Sobrecostos 20240908.xlsx
-                        |-- Detalle Sobrecostos 20240909.xlsx
-                        |-- Detalle Sobrecostos 20240910.xlsx
-                        |-- Detalle Sobrecostos 20240911.xlsx
-                        |-- Detalle Sobrecostos 20240912.xlsx
-                        |-- Detalle Sobrecostos 20240913.xlsx
-                        |-- Detalle Sobrecostos 20240914.xlsx
-                        |-- Detalle Sobrecostos 20240915.xlsx
-                        |-- Detalle Sobrecostos 20240916.xlsx
-                        |-- Detalle Sobrecostos 20240917.xlsx
-                        |-- Detalle Sobrecostos 20240918.xlsx
-                        |-- Detalle Sobrecostos 20240919.xlsx
-                        |-- Detalle Sobrecostos 20240920.xlsx
-                        |-- Detalle Sobrecostos 20240921.xlsx
-                        |-- Detalle Sobrecostos 20240922.xlsx
-                        |-- Detalle Sobrecostos 20240923.xlsx
-                        |-- Detalle Sobrecostos 20240924.xlsx
-                        |-- Detalle Sobrecostos 20240925.xlsx
-                        |-- Detalle Sobrecostos 20240926.xlsx
-                        |-- Detalle Sobrecostos 20240927.xlsx
-                        |-- Detalle Sobrecostos 20240928.xlsx
-                        |-- Detalle Sobrecostos 20240929.xlsx
-                        |-- Detalle Sobrecostos 20240930.xlsx
+                        |-- Detalle Sobrecostos 20240701.xlsx
+                        |-- Detalle Sobrecostos 20240702.xlsx
+                        |-- Detalle Sobrecostos 20240703.xlsx
+                        |-- Detalle Sobrecostos 20240704.xlsx
+                        |-- Detalle Sobrecostos 20240705.xlsx
+                        |-- Detalle Sobrecostos 20240706.xlsx
+                        |-- Detalle Sobrecostos 20240707.xlsx
+                        |-- Detalle Sobrecostos 20240708.xlsx
+                        |-- Detalle Sobrecostos 20240709.xlsx
+                        |-- Detalle Sobrecostos 20240710.xlsx
+                        |-- Detalle Sobrecostos 20240711.xlsx
+                        |-- Detalle Sobrecostos 20240712.xlsx
+                        |-- Detalle Sobrecostos 20240713.xlsx
+                        |-- Detalle Sobrecostos 20240714.xlsx
+                        |-- Detalle Sobrecostos 20240715.xlsx
+                        |-- Detalle Sobrecostos 20240716.xlsx
+                        |-- Detalle Sobrecostos 20240717.xlsx
+                        |-- Detalle Sobrecostos 20240718.xlsx
+                        |-- Detalle Sobrecostos 20240719.xlsx
+                        |-- Detalle Sobrecostos 20240720.xlsx
+                        |-- Detalle Sobrecostos 20240721.xlsx
+                        |-- Detalle Sobrecostos 20240722.xlsx
+                        |-- Detalle Sobrecostos 20240723.xlsx
+                        |-- Detalle Sobrecostos 20240724.xlsx
+                        |-- Detalle Sobrecostos 20240725.xlsx
+                        |-- Detalle Sobrecostos 20240726.xlsx
+                        |-- Detalle Sobrecostos 20240727.xlsx
+                        |-- Detalle Sobrecostos 20240728.xlsx
+                        |-- Detalle Sobrecostos 20240729.xlsx
+                        |-- Detalle Sobrecostos 20240730.xlsx
+                        |-- Detalle Sobrecostos 20240731.xlsx
                     |-- Prorratas Sobrecostos PD.xlsx
                 |-- 03 Prorratas Líneas
-                    |-- 02. ProrratasBT_sep24_def.xlsx
-                    |-- VATT Zonal y Dedicado 2020-2023 7T 2409 def.xlsx
+                    |-- 02. ProrratasBT_jul24_def.xlsx
+                    |-- VATT Zonal y Dedicado 2020-2023 7T 2407 def.xlsx
                 |-- 04 Prorratas de Retiros
-                    |-- Prorrata_Retiros_2409_def.xlsx
+                    |-- Prorrata_Retiros_2407_def.xlsx
                 |-- 05 Contratos de compraventa
-                    |-- Contratos_Generadores_2409_Fisicos_Medidas.xlsx
-            |-- 02 Antecedentes de Cálculo_2409_BD01 - 3
-                |-- Medidas_Valorizadas_15min_2409_NORTE.xlsb
-                |-- Medidas_Valorizadas_15min_2409_NORTE_DX.xlsb
-                |-- Medidas_Valorizadas_15min_2409_SUR.xlsb
-                |-- Medidas_Valorizadas_15min_2409_SUR_DX.xlsb
-            |-- 03 Bases de Datos_2409_BD01 - 1
+                    |-- Contratos_Generadores_2407_Fisicos_Medidas.xlsx
+            |-- 02 Antecedentes de Cálculo_2407_BD01 - 3
+                |-- Medidas_Valorizadas_15min_2407_NORTE.xlsb
+                |-- Medidas_Valorizadas_15min_2407_NORTE_DX.xlsb
+                |-- Medidas_Valorizadas_15min_2407_SUR.xlsb
+                |-- Medidas_Valorizadas_15min_2407_SUR_DX.xlsb
+            |-- 03 Bases de Datos_2407_BD01 - 1
                 |-- 01 Balance
-                    |-- BD_balance_valorizado_2409_Data_BASE_BASE_LT.zip
-                    |-- Medidas_2409_15min.zip
+                    |-- BD_balance_valorizado_2407_Data_BASE_BASE_LT.accdb
+                    |-- BD_balance_valorizado_2407_Data_BASE_BASE_LT.zip
+                    |-- Medidas_2407_15min.csv
+                    |-- Medidas_2407_15min.zip
                 |-- 02 Contratos Físicos
-                    |-- BBDD Contratos fisicos 2409 def.zip
-            |-- 03 Bases de Datos_2409_BD01 - 2
+                    |-- BBDD Contratos fisicos 2407 def.csv
+                    |-- BBDD Contratos fisicos 2407 def.zip
+            |-- 03 Bases de Datos_2407_BD01 - 2
                 |-- 03 Cmg
-                    |-- Fpen_Reales_Consolidado.zip
-                    |-- cmg2409_def_15minutal.zip
+                    |-- cmg2407_def_15minutal.csv
+                    |-- cmg2407_def_15minutal.zip
                 |-- 04 Valorizado
-                    |-- Balance_Valorizado_2409_Data_VALORIZADO_15min
-                        |-- Balance_Valorizado_2409_Data_VALORIZADO_15min.csv
-                        |-- Balance_Valorizado_2409_Data_VALORIZADO_15min.zip
-            |-- 03 Bases de Datos_2409_BD01 - 3
-                |-- RETIROS_2409.zip
-                |-- Retiros_2409_15min.zip
-    |-- raw
-        |-- 202407
-        |-- 202408
-            |-- 01-Resultados_2408_BD01_20241214_164627.zip
-            |-- 02-Antecedentes-de-Calculo_2408_BD01-1_20241214_164630.zip
-            |-- 02-Antecedentes-de-Calculo_2408_BD01-2_20241214_164633.zip
-            |-- 02-Antecedentes-de-Calculo_2408_BD01-3_20241214_164637.zip
-            |-- 03-Bases-de-Datos_2408_BD01-1_20241214_164637.zip
-            |-- 03-Bases-de-Datos_2408_BD01-2_20241214_164638.zip
-            |-- 03-Bases-de-Datos_2408_BD01-3_20241214_164639.zip
-        |-- 202409
-        |-- 202410
+                    |-- Balance_Valorizado_2407_Data_VALORIZADO_15min.csv
+                    |-- Balance_Valorizado_2407_Data_VALORIZADO_15min.zip
+            |-- 03 Bases de Datos_2407_BD01 - 3
+                |-- RETIROS_2407.mdb
+                |-- RETIROS_2407.zip
+                |-- RETIROS_2407_15min.csv
+                |-- RETIROS_2407_15min.zip
+            |-- Balance_SSCC_2024_jul_def
+                |-- 11_PAGOS_BESS_2407_def.xlsx
+                |-- 12_Control_de_Cambios.xlsx
+                |-- 1_CUADROS_PAGO_SSCC_2407_def.xlsm
+                |-- 2_REMUNERACIαN_INFRAESTRUCTURA_2407_def.xlsx
+                |-- 3_REMUNERACIαN_SUBASTAS_E_ID_2407_Definitivo.xlsm
+                |-- 4_REMUNERACIαN_SC_CO_CCA_Y_Pagos_Retiros_2407_def.xlsx
+                |-- 5_REMUNERACIαN_CRA_2407_Definitivo.xlsx
+                |-- 6_REMUNERACIαN_REA_Y_CO_ERNC_2407_Definitivo.xlsx
+                |-- 7_VERIFICAR_DOBLE_PAGO_2407_def.xlsx
+                |-- 8_REMUNERACIαN_CONTROL_CONTINGENCIAS_jun24_def.xlsx
+                |-- 9_Pagos_Retiros_CRA_REA_CO_ERNC_Subastas_2407_def.xlsx
+                |-- DE 04260-24 Balance jul_2024_def.pdf
+                |-- Minuta Remuneración de SSCC_Rev.12.pdf
+                |-- Respaldos_CO_SC_CCA
+                    |-- 01 Sobrecostos
+                        |-- Cálculo_SobrecostosSSCC_2407_def.xlsm
+                        |-- Detalles Diarios
+                            |-- Detalle Sobrecostos 20240701.xlsx
+                            |-- Detalle Sobrecostos 20240702.xlsx
+                            |-- Detalle Sobrecostos 20240703.xlsx
+                            |-- Detalle Sobrecostos 20240704.xlsx
+                            |-- Detalle Sobrecostos 20240705.xlsx
+                            |-- Detalle Sobrecostos 20240706.xlsx
+                            |-- Detalle Sobrecostos 20240707.xlsx
+                            |-- Detalle Sobrecostos 20240708.xlsx
+                            |-- Detalle Sobrecostos 20240709.xlsx
+                            |-- Detalle Sobrecostos 20240710.xlsx
+                            |-- Detalle Sobrecostos 20240711.xlsx
+                            |-- Detalle Sobrecostos 20240712.xlsx
+                            |-- Detalle Sobrecostos 20240713.xlsx
+                            |-- Detalle Sobrecostos 20240714.xlsx
+                            |-- Detalle Sobrecostos 20240715.xlsx
+                            |-- Detalle Sobrecostos 20240716.xlsx
+                            |-- Detalle Sobrecostos 20240717.xlsx
+                            |-- Detalle Sobrecostos 20240718.xlsx
+                            |-- Detalle Sobrecostos 20240719.xlsx
+                            |-- Detalle Sobrecostos 20240720.xlsx
+                            |-- Detalle Sobrecostos 20240721.xlsx
+                            |-- Detalle Sobrecostos 20240722.xlsx
+                            |-- Detalle Sobrecostos 20240723.xlsx
+                            |-- Detalle Sobrecostos 20240724.xlsx
+                            |-- Detalle Sobrecostos 20240725.xlsx
+                            |-- Detalle Sobrecostos 20240726.xlsx
+                            |-- Detalle Sobrecostos 20240727.xlsx
+                            |-- Detalle Sobrecostos 20240728.xlsx
+                            |-- Detalle Sobrecostos 20240729.xlsx
+                            |-- Detalle Sobrecostos 20240730.xlsx
+                            |-- Detalle Sobrecostos 20240731.xlsx
+                    |-- 02 Costo de Oportunidad
+                        |-- Cálculo_CO_2407_definitivo.xlsm
+                        |-- Detalle diario
+                            |-- Detalle Costo de Oportunidad 20240701.xlsx
+                            |-- Detalle Costo de Oportunidad 20240702.xlsx
+                            |-- Detalle Costo de Oportunidad 20240703.xlsx
+                            |-- Detalle Costo de Oportunidad 20240704.xlsx
+                            |-- Detalle Costo de Oportunidad 20240705.xlsx
+                            |-- Detalle Costo de Oportunidad 20240706.xlsx
+                            |-- Detalle Costo de Oportunidad 20240707.xlsx
+                            |-- Detalle Costo de Oportunidad 20240708.xlsx
+                            |-- Detalle Costo de Oportunidad 20240709.xlsx
+                            |-- Detalle Costo de Oportunidad 20240710.xlsx
+                            |-- Detalle Costo de Oportunidad 20240711.xlsx
+                            |-- Detalle Costo de Oportunidad 20240712.xlsx
+                            |-- Detalle Costo de Oportunidad 20240713.xlsx
+                            |-- Detalle Costo de Oportunidad 20240714.xlsx
+                            |-- Detalle Costo de Oportunidad 20240715.xlsx
+                            |-- Detalle Costo de Oportunidad 20240716.xlsx
+                            |-- Detalle Costo de Oportunidad 20240717.xlsx
+                            |-- Detalle Costo de Oportunidad 20240718.xlsx
+                            |-- Detalle Costo de Oportunidad 20240719.xlsx
+                            |-- Detalle Costo de Oportunidad 20240720.xlsx
+                            |-- Detalle Costo de Oportunidad 20240721.xlsx
+                            |-- Detalle Costo de Oportunidad 20240722.xlsx
+                            |-- Detalle Costo de Oportunidad 20240723.xlsx
+                            |-- Detalle Costo de Oportunidad 20240724.xlsx
+                            |-- Detalle Costo de Oportunidad 20240725.xlsx
+                            |-- Detalle Costo de Oportunidad 20240726.xlsx
+                            |-- Detalle Costo de Oportunidad 20240727.xlsx
+                            |-- Detalle Costo de Oportunidad 20240728.xlsx
+                            |-- Detalle Costo de Oportunidad 20240729.xlsx
+                            |-- Detalle Costo de Oportunidad 20240730.xlsx
+                            |-- Detalle Costo de Oportunidad 20240731.xlsx
+                    |-- 03 Costos de Combustible Adicional
+                        |-- Consolidado_CCA_2407_definitivo.xlsm
+                        |-- Detalle diario
+                            |-- Detalle CCA 20240701.xlsx
+                            |-- Detalle CCA 20240702.xlsx
+                            |-- Detalle CCA 20240703.xlsx
+                            |-- Detalle CCA 20240704.xlsx
+                            |-- Detalle CCA 20240705.xlsx
+                            |-- Detalle CCA 20240706.xlsx
+                            |-- Detalle CCA 20240707.xlsx
+                            |-- Detalle CCA 20240708.xlsx
+                            |-- Detalle CCA 20240709.xlsx
+                            |-- Detalle CCA 20240710.xlsx
+                            |-- Detalle CCA 20240711.xlsx
+                            |-- Detalle CCA 20240712.xlsx
+                            |-- Detalle CCA 20240713.xlsx
+                            |-- Detalle CCA 20240714.xlsx
+                            |-- Detalle CCA 20240715.xlsx
+                            |-- Detalle CCA 20240716.xlsx
+                            |-- Detalle CCA 20240717.xlsx
+                            |-- Detalle CCA 20240718.xlsx
+                            |-- Detalle CCA 20240719.xlsx
+                            |-- Detalle CCA 20240720.xlsx
+                            |-- Detalle CCA 20240721.xlsx
+                            |-- Detalle CCA 20240722.xlsx
+                            |-- Detalle CCA 20240723.xlsx
+                            |-- Detalle CCA 20240724.xlsx
+                            |-- Detalle CCA 20240725.xlsx
+                            |-- Detalle CCA 20240726.xlsx
+                            |-- Detalle CCA 20240727.xlsx
+                            |-- Detalle CCA 20240728.xlsx
+                            |-- Detalle CCA 20240729.xlsx
+                            |-- Detalle CCA 20240730.xlsx
+                            |-- Detalle CCA 20240731.xlsx
+        |-- estructura_proyecto.txt
 |-- estructura_proyecto.txt
 |-- logs
     |-- process.log
 |-- main.py
 |-- notebooks
+|-- prueba_sql.py
 |-- readme.MD
 |-- requirements.txt
 |-- scripts
@@ -169,6 +332,7 @@
     |-- etl
         |-- __init__.py
         |-- data_extractor.py
+        |-- file_organizer.py
         |-- file_registry
             |-- __init__.py
             |-- exceptions.py
@@ -189,7 +353,13 @@
     |-- utils
         |-- __init__.py
         |-- config_loader.py
+        |-- dollar_obs.py
         |-- file_handler.py
+        |-- homologation_dictionaries.py
         |-- period_handler.py
         |-- zip_handler.py
+    |-- validators
+        |-- __init__.py
+        |-- validate_balance_valorizado.py
+        |-- validate_sobrecostos.py
 |-- tests

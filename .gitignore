@@ -1,3 +1,13 @@
+# Ignorar archivos en las carpetas de datos
+data/*
+!data/.keep
+
+data/raw/*
+data/processed/*
+data/unzipped/*
+data/archive/*
+data/outputs/*
+
 # Entornos virtuales
 venv/
 .venv/
@@ -32,14 +42,6 @@ logs/
 *.bak
 *.swp
 
-# Archivos de datos específicos del proyecto
-data/raw/*
-data/processed/*
-data/archive/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-!data/archive/.gitkeep
-
 # Archivos de configuración local
 .env
 .env.local
@@ -65,3 +67,6 @@ coverage.xml
 # Archivos de documentación generados
 docs/_build/
 _build/
+
+# Estructura
+estructura_proyecto.txt
